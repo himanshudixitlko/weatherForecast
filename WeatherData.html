@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="namesCtrl">
+
+<p>Type a City Name in the input field:</p>
+
+<p><input type="text" ng-model="test">
+
+
+<table class="table"> 
+<tr>
+<th>Location</th>
+<th>Position</th>
+<th>Local Time</th>
+<th>Condition</th>
+<th>Temperature</th>
+<th>Pressure</th>
+<th>Humidity</th>
+</tr>
+<tr ng-repeat="x in cities | filter:test | limitTo : 1">
+<td ng-class="random(x)">{{x.name}}</td>
+<td>{{x.position}}</td>
+<td>{{time | date:'yyyy-MM-ddTHH:mm:ssZ'}}</td>
+<td>{{conditions[ran1][ran2]}}</td>
+<td>{{temprature[ran3][ran2]}}</td>
+<td>{{pressure[ran4][ran2]}}</td>
+<td>{{hmidity[ran2]}}</td>
+
+
+</tr>
+</table>
+
+</div>
+
+<script>
+angular.module('myApp', []).controller('namesCtrl', function($scope) {
+    $scope.cities = [{'name':'Sydney', 'atmosphere':'a1', 'geography':'g1', 'topography':'t1', 'oceanography':'o1', 'position':'33.86, 151.20, 19'},
+	{'name':'Melbourne', 'atmosphere':'a2', 'geography':'g2', 'topography':'t2', 'oceanography':'o2', 'position':'37.81, 144.96, 23'},
+	{'name':'Brisbane', 'atmosphere':'a3', 'geography':'g3', 'topography':'t3', 'oceanography':'o3', 'position':'27.46, 153.02, 37'},
+	{'name':'Adelaide', 'atmosphere':'a4', 'geography':'g4', 'topography':'t4', 'oceanography':'o4', 'position':'34.92, 138.60, 20'},
+	{'name':'Perth', 'atmosphere':'a1', 'geography':'g1', 'topography':'t1', 'oceanography':'o1', 'position':'31.95, 115.86, 19'},
+	{'name':'Ballarat', 'atmosphere':'a1', 'geography':'g1', 'topography':'t3', 'oceanography':'o3', 'position':'37.56, 143.85, 16'},
+	{'name':'Bendigo', 'atmosphere':'a1', 'geography':'g1', 'topography':'t4', 'oceanography':'o1', 'position':'36.75, 144.27, 17'},
+	{'name':'Albany', 'atmosphere':'a1', 'geography':'g1', 'topography':'t1', 'oceanography':'o4', 'position':'42.65, 73.75, 21'},
+	{'name':'Rockhampton', 'atmosphere':'a1', 'geography':'g1', 'topography':'t2', 'oceanography':'o1', 'position':'23.37, 150.51, 17'},
+	{'name':'Mackay', 'atmosphere':'a1', 'geography':'g1', 'topography':'t1', 'oceanography':'o2', 'position':'21.14, 149.18, 15'},
+	{'name':'Kalgoorlie', 'atmosphere':'a1', 'geography':'g1', 'topography':'t1', 'oceanography':'o1', 'position':'30.74, 121.46, 19'}];
+	
+	$scope.time = new Date();
+	
+	$scope.conditions = {'g1':['Rain','Snow','Sunny', 'Rain','Snow','Sunny', 'Rain','Snow','Sunny', 'Rain'],'g2':['Rain','Snow','Sunny', 'Rain','Snow','Sunny', 'Rain','Snow','Sunny', 'Rain'],'g3':['Rain','Snow','Sunny', 'Rain','Snow','Sunny', 'Rain','Snow','Sunny', 'Rain'],'g4':['Rain','Snow','Sunny', 'Rain','Snow','Sunny', 'Rain','Snow','Sunny', 'Rain']};
+	
+	$scope.temprature = {'t1' :['12.5','30.2','15.4','26.4','12.8','11.8','5.6','8.6','15.3','12.5','17.4'], 't2' : ['12.5','30.2','15.4','26.4','12.8','11.8','5.6','8.6','15.3','12.5','17.4'],'t3' :['12.5','30.2','15.4','26.4','12.8','11.8','5.6','8.6','15.3','12.5','17.4'], 't4' :['12.5','30.2','15.4','26.4','12.8','11.8','5.6','8.6','15.3','12.5','17.4']};
+	
+	$scope.pressure = {'o1':['1010.3','234.6','1665.5','987.5','346.7','789.9','908.0','876.1','847.5','964.6','457.3'],'o2':['1010.3','234.6','1665.5','987.5','346.7','789.9','908.0','876.1','847.5','964.6','457.3'], 'o3':['1010.3','234.6','1665.5','987.5','346.7','789.9','908.0','876.1','847.5','964.6','457.3'], 'o4':['1010.3','234.6','1665.5','987.5','346.7','789.9','908.0','876.1','847.5','964.6','457.3'] } ; 
+	
+	$scope.hmidity = ['97','89','67','89','70','96','98','100','80','78','98'] ;
+	
+	$scope.myCity = '';
+	$scope.ran1 = '';
+	$scope.ran2 = '';
+	$scope.ran3 = '';
+	$scope.ran4 = '';
+	 $scope.random = function(x) {
+	 console.log(x);
+		$scope.ran1 = x.geography
+		$scope.ran3 = x.topography
+		$scope.ran4 = x.oceanography
+        $scope.ran2 = Math.floor((Math.random() * 10) + 1);
+		console.log($scope.ran2);
+		console.log($scope.conditions[$scope.ran1][$scope.ran2]);
+    };
+	
+});
+</script>
+
+
+
+</body>
+</html>
